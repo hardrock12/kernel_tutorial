@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sudo losetup /dev/loop0 floppy.img
-sudo mount /dev/loop0 /mnt
-sudo cp src/kernel /mnt/kernel
-sudo umount /dev/loop0
-sudo losetup -d /dev/loop0
+hdiutil attach floppy.img -mountpoint mnt -nobrowse 
+cp src/kernel /mnt/kernel
+hdiutil detach mnt

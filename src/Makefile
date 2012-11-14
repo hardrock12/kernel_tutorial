@@ -15,7 +15,7 @@ clean:
 	-rm *.o kernel
 
 link:
-	ld $(LDFLAGS) -o kernel $(SOURCES)
+	/opt/local/i386-elf/bin/ld $(LDFLAGS) -o kernel $(SOURCES)
 
 .s.o:
 	nasm $(ASFLAGS) $<
