@@ -283,7 +283,9 @@ vga: extension=vbe
 #floppya: 1_44=a:, status=inserted
 #floppya: 1_44=a.img, status=inserted
 #floppya: 1_44=/dev/rfd0a, status=inserted
-floppya: 1_44=/dev/loop0, status=inserted
+#floppya: 1_44=/dev/loop0, status=inserted
+# /dev/disk1 for MacosX.
+floppya: 1_44="floppy.img", status=inserted
 
 #=======================================================================
 # FLOPPYB:
