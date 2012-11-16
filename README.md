@@ -28,7 +28,7 @@ i386-elf-gcc configure.compiler=clang` on my Snow Leopard machine. The
 default compiler being **llvm-gcc-4.2** and failed for me.)
 * nasm
 
-A big tutorial resource for me was <wiki.osdev.org/>.
+A big tutorial resource for me was <http://wiki.osdev.org>.
 
 TODO
 ====
