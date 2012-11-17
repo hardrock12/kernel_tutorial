@@ -9,5 +9,5 @@
 #recognize the format, complains about it and fails. As a result,
 #hdituils lines are commented here. hdiutil attach floppy.img
 #-mountpoint mnt -nobrowse -readwrite
-bochs -f bochsrc.txt
+bochs -q -f bochsrc.txt
 #hdiutil detach mnt

@@ -49,17 +49,14 @@ Still from the src/ folder:
 
 2. Invoke bochs with the dedicated script `./run_bochs.sh`.
 
-3. Bochs will prompt you a menu. Just skip it, typing in the Enter
-key.
-
-4. Once the Bochs GUI is launched with the black screen, a GRUB
+3. Once the Bochs GUI is launched with the black screen, a GRUB
 command prompt finish to appear. Type in the following command :
 `grub> kernel 200+N`. N being the size of your kernel in blocks (that
 is the size displayed previously divided by 512, since a block
 contains 512 bytes). Type enter. Grub must reply with a line like
 `[Multiboot-elf, ... shtab=...entry=...]`
 
-5. Still from the Grub prompt, type in `boot` which launch the kernel.
+4. Still from the Grub prompt, type in `boot` which launch the kernel.
 Let's `hack`! ;-)
 
 
