@@ -97,3 +97,36 @@ void monitor_write(char *c)
   while (c[i])
     monitor_put(c[i++]);
 }
+
+
+
+char nibble2char(int nibble)
+{
+  if (nibble < 10)
+    return '0' + nibble;
+
+  return 'A' + nibble - 10;
+}
+
+void monitor_write_hex(u32int n)
+{
+  monitor_write("0x");
+  
+  int i;
+  for (i = 0; i < 8; ++i) {
+    int nibble = (n >> (4*(8 - (i+1)))) & 0xF;
+    monitor_put(nibble2char(nibble));
+  }
+}
+
+void monitor_write_dec(u32int n)
+{
+  char dec[11];
+  dec[10] = 0;
+  int i;
+  for (i = 9; i >= 0; --i) {
+    dec[i] = '0' + (n % 10);
+    n /= 10;
+  }
+  monitor_write(dec);
+}
