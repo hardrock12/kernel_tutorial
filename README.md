@@ -8,7 +8,7 @@ James Molloy at
 <http://www.jamesmolloy.co.uk/tutorial_html/index.html>. I am trying
 to develop it from my MacosX box (Snow Leopard) directly, and run my
 own generated kernel with Bochs, an i386 virtual machine
-(<http://bochs.sourceforge.net/>); I installed Bocks from MacPorts
+(<http://bochs.sourceforge.net/>); I installed Bochs from MacPorts
 (<http://www.macports.org/>).
 
 At some point I could have host my developement process in a virtual
