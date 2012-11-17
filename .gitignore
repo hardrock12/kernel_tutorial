@@ -20,4 +20,9 @@
 kernel
 pad
 *.img
+
+# Configuration files
 bochsout.txt
+
+# Tmp dir
+tmp
