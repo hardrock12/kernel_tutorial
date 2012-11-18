@@ -3,7 +3,7 @@
 # The only one that needs changing is the assembler 
 # rule, as we use nasm instead of GNU as.
 
-SOURCES=boot.o main.o common.o monitor.o
+SOURCES=boot.o main.o common.o monitor.o descriptor_tables.o gdt_flush.o
 
 # WARNING: this exe results in the following error (use
 # i386-elf-gcc-4.3.2 instead)
