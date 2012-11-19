@@ -4,6 +4,7 @@
 
 int main(struct multiboot *mboot_ptr)
 {
+  init_descriptor_tables();
   // All our initialisation calls will go in here.
   monitor_clear();
   monitor_write("HELLO WOOOORLD!");
@@ -14,5 +15,11 @@ int main(struct multiboot *mboot_ptr)
   monitor_write_dec(321);
   monitor_write_dec(0);
   monitor_write_dec(2147483647);
+  monitor_put('\n');
+
+  asm volatile ("int $0x3");
+  asm volatile ("int $0x4");
+  monitor_put('\n');
+
   return 0xDEADBABE;
 }

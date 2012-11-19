@@ -3,7 +3,8 @@
 # The only one that needs changing is the assembler 
 # rule, as we use nasm instead of GNU as.
 
-SOURCES=boot.o main.o common.o monitor.o descriptor_tables.o gdt_flush.o
+SOURCES=boot.o main.o common.o monitor.o descriptor_tables.o	\
+gdt_flush.o interrupt.o isr.o
 
 # WARNING: this exe results in the following error (use
 # i386-elf-gcc-4.3.2 instead)
@@ -26,8 +27,11 @@ kernel: $(SOURCES)
 pad:
 	dd if=/dev/zero of=pad bs=1 count=750
 
-floppy.img: stage1 stage2 pad kernel
-	cat stage1 stage2 pad kernel > floppy.img
+pad2: kernel
+	dd if=/dev/zero of=pad2 bs=1 count=1357025
+
+floppy.img: stage1 stage2 pad kernel pad2
+	cat stage1 stage2 pad kernel pad2 > floppy.img
 
 .s.o:
 	nasm $(ASFLAGS) $<
