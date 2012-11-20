@@ -22,3 +22,11 @@ u16int inw(u16int port)
    asm volatile ("inw %1, %0" : "=a" (ret) : "dN" (port));
    return ret;
 }
+
+void *memset(void *s, char c, u32int n)
+{
+  int i;
+  for (i = 0; i < n; ++i)
+    *(char *)(s++) = c;
+  return s - n;
+}

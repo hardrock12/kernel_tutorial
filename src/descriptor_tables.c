@@ -5,8 +5,10 @@
 // Rewritten for JamesM's kernel development tutorials.
 //
 
+
 #include "common.h"
 #include "descriptor_tables.h"
+#include "isr.h"
 
 // Lets us access our ASM functions from our C code.
 extern void gdt_flush(u32int);
@@ -30,6 +32,7 @@ void init_descriptor_tables()
    // Initialise the global descriptor table.
    init_gdt();
    init_idt();
+   memset(&interrupt_handlers, 0, sizeof(isr_t)*256);
 }
 
 static void init_gdt()
@@ -46,13 +49,24 @@ static void init_gdt()
    gdt_flush((u32int)&gdt_ptr);
 }
 
-void *memset(void *s, char c, u32int n)
-{
-  int i;
-  for (i = 0; i < n; ++i)
-    *(char *)(s++) = c;
-  return s - n;
-}
+#define PIC1		0x20		/* IO base address for master PIC */
+#define PIC2		0xA0		/* IO base address for slave PIC */
+#define PIC1_COMMAND	PIC1
+#define PIC1_DATA	(PIC1+1)
+#define PIC2_COMMAND	PIC2
+#define PIC2_DATA	(PIC2+1)
+
+#define ICW1_ICW4	0x01		/* ICW4 (not) needed */
+#define ICW1_SINGLE	0x02		/* Single (cascade) mode */
+#define ICW1_INTERVAL4	0x04		/* Call address interval 4 (8) */
+#define ICW1_LEVEL	0x08		/* Level triggered (edge) mode */
+#define ICW1_INIT	0x10		/* Initialization - required! */
+ 
+#define ICW4_8086	0x01		/* 8086/88 (MCS-80/85) mode */
+#define ICW4_AUTO	0x02		/* Auto (normal) EOI */
+#define ICW4_BUF_SLAVE	0x08		/* Buffered mode/slave */
+#define ICW4_BUF_MASTER	0x0C		/* Buffered mode/master */
+#define ICW4_SFNM	0x10		/* Special fully nested (not) */
 
 static void init_idt()
 {
@@ -60,7 +74,9 @@ static void init_idt()
   idt_ptr.base  = (u32int)&idt_entries;
 
   memset(&idt_entries,0,sizeof(idt_entry_t)*256);
-
+  unsigned char a1, a2;
+  a1 = inb(PIC1_DATA);                        // save masks
+  a2 = inb(PIC2_DATA);
   // Remap the irq table.
   outb(0x20, 0x11);
   outb(0xA0, 0x11);

@@ -1,6 +1,7 @@
 // main.c -- Defines the C-code kernel entry point, calls initialisation routines.
 // Made for JamesM's tutorials 
 #include "monitor.h"
+#include "timer.h"
 
 int main(struct multiboot *mboot_ptr)
 {
@@ -19,7 +20,10 @@ int main(struct multiboot *mboot_ptr)
 
   asm volatile ("int $0x3");
   asm volatile ("int $0x4");
+  asm volatile("sti");
   monitor_put('\n');
+
+  init_timer(50); // Initialise timer to 50Hz
 
   return 0xDEADBABE;
 }

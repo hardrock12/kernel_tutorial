@@ -424,7 +424,7 @@ boot: floppy
 # 
 # Default value are sync=none, time0=local
 #=======================================================================
-#clock: sync=none, time0=local
+clock: sync=none, time0=local
 
 
 #=======================================================================
@@ -492,6 +492,7 @@ log: bochsout.txt
 panic: action=ask
 error: action=report
 info: action=report
+#debug: action=ignore, pic=report apic0=report pit=report
 debug: action=ignore
 #pass: action=fatal
 
@@ -504,8 +505,8 @@ debug: action=ignore
 #   debugger_log: ./debugger.out
 #=======================================================================
 #debugger_log: /dev/null
-#debugger_log: debugger.out
-debugger_log: -
+debugger_log: debugger.out
+#debugger_log: -
 
 #=======================================================================
 # COM1, COM2, COM3, COM4:
