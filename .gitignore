@@ -18,8 +18,11 @@
 
 # Project generated
 kernel
-pad
+pad*
 *.img
+
+# Emacs generated
+TAGS
 
 # Configuration files
 bochsout.txt
