@@ -16,6 +16,8 @@ CFLAGS=-nostdlib -nostdinc -fno-builtin -fno-stack-protector
 LDFLAGS=-Tlink.ld
 ASFLAGS=-felf
 
+.PHONY: clean all 
+
 all: floppy.img
 
 clean:
@@ -25,10 +27,10 @@ kernel: $(SOURCES)
 	/opt/local/i386-elf/bin/ld $(LDFLAGS) -o kernel $(SOURCES)
 
 pad:
-	dd if=/dev/zero of=pad bs=1 count=750
+	dd if=/dev/zero of=pad bs=1 count=750 > /dev/null 2>&1
 
 pad2: kernel
-	dd if=/dev/zero of=pad2 bs=1 count=1357025
+	dd if=/dev/zero of=pad2 bs=1 count=$(shell echo 1372160 - `stat -f%z kernel` | bc) > /dev/null 2>&1
 
 floppy.img: stage1 stage2 pad kernel pad2
 	cat stage1 stage2 pad kernel pad2 > floppy.img
