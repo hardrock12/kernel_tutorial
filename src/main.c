@@ -22,8 +22,8 @@ int main(struct multiboot *mboot_ptr)
   asm volatile ("int $0x4");
   asm volatile("sti");
   monitor_put('\n');
-
-  init_timer(50); // Initialise timer to 50Hz
+  //  asm volatile ("int $0x20");
+  init_timer(1193180); // Initialise timer to 50Hz
 
   return 0xDEADBABE;
 }

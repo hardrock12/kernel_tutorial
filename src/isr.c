@@ -40,7 +40,9 @@ void irq_handler(registers_t regs)
     isr_t handler = interrupt_handlers[regs.int_no];
     handler(regs);
   } else {
-    monitor_write("no handlers. ");
+    monitor_write("no handlers for [");
+    monitor_write_dec(regs.int_no);
+    monitor_write("].\n");
   }
 }
 
